@@ -107,7 +107,7 @@ Once we know a little more about how to build a server inside a Virtual Machine 
 
 
 ## Installation
-At the time of writing, the latest stable version of [Debian](https://www.debian.org) is *Debian 10 Buster*. Watch *bonus* installation walkthrough *(no audio)* [here](https://youtu.be/2w-2MX5QrQw).
+At the time of writing, the latest stable version of [Debian](https://www.debian.org) is *Debian 10 Buster*. Watch *bonus* installation walkthrough *(no audio)* [here](https://www.youtube.com/watch?v=OQEdjt38ZJA&t=234s).
 
 ## *sudo*
 
