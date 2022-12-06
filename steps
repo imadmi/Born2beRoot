@@ -1,0 +1,66 @@
+NOTE: If you encounter errors like "No commands", try again with the "sudo" parameter, it will most likely fix the problem.
+ 
+After the SDAs are configured,
+1-) Type "su" --> and log in to the root account (the first password we set when installing the system that will ask for a root password)
+2-) "apt install sudo" --> Write and install the sudo package (with sudo, users are given root privileges)
+3-) "adduser username sudo" --> Adds the specified user to the sudo group. NOTE: Check if the user has been added to the group with "getent group sudo"!
+4-) We reboot the system with the "reboot" command.
+---------------------------------------------------------------- ---------------------------------------------------------------- ---------------------------------------------------------------- -------
+5-) After logging in to the user added to the group, let's check again with "sudo -v".
+6-) Type "sudo apt update" --> Let's update the package lists.
+7-) "sudo visudo -f /etc/sudoers.d/blabla" --> Opening sudo files with "visudo" creates a safer structure, we have created a new file named blabla in the specified directory and we will add the codes below.
+@-) Defaults passwd_tries=3 // With sudo, the maximum number of password attempts is 3 (also 3 as standard)
+@-) Defaults badpass_message="bla bla bla bla bla bla" // Your error message to be displayed after incorrect password attempts
+@-) Defaults logfile="/var/log/sudo/blabla" // Stores all used sudo commands in the specified file
+@-) Defaults log_input,log_output // Used to keep logs of inputs and outputs.
+@-) Defaults iolog_dir="/var/log/sudo" // Archives log_input and log_output events to the specified directory.
+@-) Defaults requiretty // Makes TTY mode mandatory.
+@-) Defaults secure_path="see pdf" // To limit directories used by sudo.
+8-) We reboot the system with the "reboot" command.
+---------------------------------------------------------------- ---------------------------------------------------------------- ---------------------------------------------------------------- -------
+9-) "sudo apt install openssh-server" --> Installs the openssh-server package (Openssh provides a secure channel over an insecure outside network)
+10-) "sudo nano /etc/ssh/sshd_config" --> SSH Configurations.
+@-) Change "#Port 22" to "Port 4242" without quotes
+@-) Change "#PermitRootLogin prohibit-password" to "PermitRootLogin no". NOTE: You will do without the quotation marks and # signs.
+11-) We reboot the system with the "reboot" command.
+---------------------------------------------------------------- ---------------------------------------------------------------- ---------------------------------------------------------------- -------
+12-) "sudo service ssh status" --> You can view the ssh status by typing this command.
+13-) "sudo apt install ufw" --> It stands for "uncomplicated firewall", so it says it's an uncomplicated firewall (: you install that package.
+14-) "sudo ufw enable" --> We activate our firewall.
+15-) "sudo ufw allow 4242" --> We add a new rule to our firewall for port 4242 and allow it.
+16-) "sudo ufw status" --> we check the status of our firewall.
+17-) We turn off the system with the "poweroff" command.
+---------------------------------------------------------------- ---------------------------------------------------------------- ---------------------------------------------------------------- -------
+THIS IS IMPORTANT: WE NEED TO DO PORT FORWING THROUGH THE VM TO ATTEND SSH CONNECTION.
+-Right click on the virtual server we set up on the VM interface, go to the network section from the settings section, then click on the B. point forwarding section under the advanced menu.
+- On the right side of the new window that opens, there is a green new connection rule button, let's click it once. Later on
+-ADI Part: SSH
+- To the PROTOCOL Part: TCP
+-To HOST IP Part: 127.0.0.1
+-Home Machine BN Part: 4242
+- To the GUEST IP Section: 10.0.2.15
+- To GUEST BN Section: 4242
+You can edit and click OK below.
+---------------------------------------------------------------- ---------------------------------------------------------------- ---------------------------------------------------------------- -------
+18-) "sudo nano /etc/login.defs" --> We open the file with nano and look for it in it (NOTE: DON'T WORRY ON THE VIRTUAL SERVER ITSELF, BECAUSE WE CAN NOW MAKE SSH CONNECTION THROUGH THE TERMINAL) :)
+@-) PASS_MAX_DAYS 99999 --> PASS_MAX_DAYS 30 //We specified that the password will expire every 30 days
+@-) PASS_MIN_DAYS 0 --> PASS_MIN_DAYS 2 // We stated that after changing the password, it will be able to be changed again after at least 2 days.
+@-) PASS_WARN_AGE 7 //We specified that the user will encounter a warning 7 days before the password expires.
+19-) "sudo apt install libpam-pwquality" --> We install the libpam-pwquality package to increase the security of passwords.
+20-) "sudo nano /etc/pam.d/common-password" --> open common-password document and search in it: "password requisite pam_pwquality.so retry=3"
+After -retry=3, a space is left and the following is added:
+@-) minlen=10 // Minimum length 10
+@-) ucredit=-1 dcredit=-1 // Must contain at least one uppercase and one numeric character
+@-) maxrepeat=3 // A maximum of 3 consecutive characters can be used.
+@-) reject_username // Must not contain the username.
+@-) difok=7 // 7 different character requirements that the old password does not contain
+@-) enforce_for_root // We made the rules also apply to root
+@@-) FINAL STATUS: password requisite pam_pwquality.so retry=3 minlen=10 ucredit=-1 dcredit=-1 maxrepeat=3 reject_username difok=7 enforce_for_root
+---------------------------------------------------------------- ---------------------------------------------------------------- ---------------------------------------------------------------- -------
+NOW TO TEST OUR NEW CONFIGURATIONS, WE WILL CHANGE ROOT AND CHANGE THE PASSWORDS OF OTHER USER THAT WE OPENED ON MY BEHALF DURING INSTALLATION
+---------------------------------------------------------------- ---------------------------------------------------------------- ---------------------------------------------------------------- -------
+21-) We created a new group named "sudo addgroup user42" --> "user42".
+22-) "sudo adduser user_name user42" --> We added the specified user to the user42 group.
+23-) "sudo passwd username" --> let's change our passwords.
+---------------------------------------------------------------- ---------------------------------------------------------------- ---------------------------------------------------------------- -------
+24-) "sudo crontab -u root -e" --> Crontab can be thought of as a timed file execution system. Change or add the bottom line "*/10 * * * * sh /path/to/script".
