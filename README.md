@@ -1,5 +1,5 @@
 # 1337 cursus - Born2beroot
-<a href=https://miro.com/app/board/uXjVPEVHTXk=/>Important link (resume)</a>
+<a href="https://miro.com/app/board/uXjVPEVHTXk=/">Important link (resume)</a>
 
 ## Table of Contents
 1. [Introduction](#introduction)
