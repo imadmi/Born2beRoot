@@ -15,7 +15,7 @@ lvmu=$(if [ $lvmt -eq 0 ]; then echo no; else echo yes; fi)
 ctcp=$(ss -t state established | grep -v 'Recv-Q' | wc -l)
 ulog=$(users | wc -w)
 ip=$(hostname -I)
-mac=$(ip link show | awk '$1 == "link/ether" {print $2}')
+mac=$(ip link | awk '$1 == "link/ether" {print $2}')
 cmds=$(journalctl _COMM=sudo | grep COMMAND | wc -l)
 wall "	#Architecture: $arc
 	#CPU physical: $pcpu
