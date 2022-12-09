@@ -54,6 +54,9 @@ SSH, also known as Secure Shell , is **a network protocol that gives users a se
 ## **User**
 
 1-Create new user via `sudo adduser <username>`
+
+- check the modified files `sudo getent shadow` and `sudo getent passwd`
+
 2-Create a group named "evaluating”:`sudo addgroup evaluating`
 
 3-Assign it to this user:`sudo adduser <username> evaluating`.
@@ -69,7 +72,7 @@ SSH, also known as Secure Shell , is **a network protocol that gives users a se
 
 ## **Hostname and partitions**
 
-- Check the hostname of the machine :`uname -a` or `hostnamectl`
+- Check the hostname of the machine :`uname -a` or `hostnamectl` or `hostname`
 - Modify this hostname:`sudo hostnamectl set-hostname "imad"` (reboot to change).
 - View the partitions for this virtual machine: `lsblk`
 - LVM : is short for Logic Volume Manager and its purpose is to gather a whole bunch of hard disks into a group of logic volumes that you have more control over and flexibility.
@@ -88,5 +91,7 @@ SSH, also known as Secure Shell , is **a network protocol that gives users a se
 
 ## **SSH**
 
-- Check that it is working properly : `dpkg -l | grep ssh`
+- Check that it is working properly : `sudo service ssh status`.
 - What is SSH ?  or secure shell, is an encrypted protocol used to administer and communicate with servers.
+- Verify that the SSH service only uses port 4242: `sudo ufw status` `sudo vim /etc/ssh/sshd_config`
+- Use SSH in order to log in with the newly created user. `ssh user@hostname -p portnumber`.
