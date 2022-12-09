@@ -1,4 +1,5 @@
-# Born2beRoot
+# Born2beRoot 1337
+
 • How a virtual machine works?
 
 A VM is **a virtualized instance of a computer that can perform almost all of the same functions as a computer, including running applications and operating systems**
