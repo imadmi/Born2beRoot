@@ -1,7 +1,6 @@
 <style>
 .centre{
   text-align: center
-  }
 }
 </style><h1 class="page-title"><span class="icon">🖥️ </span><a href="https://imadmi.github.io/Born2beRoot.github.io/">Born2beRoot</a> 1337</h1>
 <body><article id="e6828c7e-c0a0-4bdd-89ca-3e1720f5de20" class="page sans"><header><div class="page-body"><p id="ad56ba00-b6e6-4814-b9ec-f0d5d01751de" class=""><mark class="highlight-orange">• How a virtual machine works?</mark></p><p id="06dae5c6-74a2-4a35-8480-be3222496c8e" class="">A VM is <strong>a virtualized instance of a computer that can perform almost all of the same functions as a computer, including running applications and operating systems</strong>
